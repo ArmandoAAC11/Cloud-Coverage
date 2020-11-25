@@ -1,28 +1,27 @@
 import time
 from PIL import Image, ImageDraw
+import os
 
 def mascara(im):
-    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+im)
+    ruta = ("./"+im)
+    print(os.getcwd())
     imagen = Image.open(ruta)
+
     mascara = Image.new("L",(4368,2912),0)
     dibuja = ImageDraw.Draw(mascara)
     dibuja.ellipse((860,132,3508,2780), fill=255)
     imagen.putalpha(mascara)
     imagen=imagen.crop((860,132,3508,2780))
-    imagen.save("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/S-crop.png")
+    imagen.save("./S-crop.png")
     imagen.show()
 
 def abrir_imagen(imagen):
-    tiempoInicial = time.time()
-    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+imagen)
+    ruta = ("./"+imagen)
     imagen = Image.open(ruta)
     imagen.show()
-    tiempofin = time.time()
-    print("Se tardo ", tiempofin - tiempoInicial, " segundos")
-    print("jala chido")
 
 def blanco_negro(im):
-    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+im)
+    ruta = ("./"+im)
     imagen = Image.open(ruta)
     imagen.show()
     imagen2 = imagen
