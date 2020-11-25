@@ -1,15 +1,28 @@
-from PIL import Image
 import time
+from PIL import Image, ImageDraw
+
+def mascara(im):
+    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+im)
+    imagen = Image.open(ruta)
+    mascara = Image.new("L",(4368,2912),0)
+    dibuja = ImageDraw.Draw(mascara)
+    dibuja.ellipse((860,132,3508,2780), fill=255)
+    imagen.putalpha(mascara)
+    imagen=imagen.crop((860,132,3508,2780))
+    imagen.save("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/S-crop.png")
+    imagen.show()
+
 def abrir_imagen(imagen):
     tiempoInicial = time.time()
-    ruta = ("/home/armandoaac/Descargas/CloudCoverageImgs/"+imagen)
+    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+imagen)
     imagen = Image.open(ruta)
     imagen.show()
     tiempofin = time.time()
     print("Se tardo ", tiempofin - tiempoInicial, " segundos")
     print("jala chido")
-def blanco_negro(imagen):
-    ruta = ("/home/armandoaac/Descargas/CloudCoverageImgs/"+imagen)
+
+def blanco_negro(im):
+    ruta = ("/home/armandoaac/Documentos/GIT/CloudCoverageImgs/"+im)
     imagen = Image.open(ruta)
     imagen.show()
     imagen2 = imagen
@@ -17,9 +30,9 @@ def blanco_negro(imagen):
     while i < imagen2.size[0]:
         j = 0
         while j < imagen2.size[1]:
-            r,g, b = imagen2.getpixel((i, j))
-            proporcion = (r+g+b)/3
-            if proporcion < 242:
+            r,g,b,a = imagen2.getpixel((i, j))
+            proporcion = r/b
+            if proporcion < 0.95:
                 imagen2.putpixel((i,j),(0,0,0))
             else:
                 imagen2.putpixel((i,j),(255,255,255))
