@@ -20,18 +20,18 @@ def abrir_imagen(imagen):
     imagen = Image.open(ruta)
     imagen.show()
 
-def blanco_negro(im):
-    ruta = ("./"+im)
+def blanco_negro(imagen):
+    ruta = ("./"+imagen)
     imagen = Image.open(ruta)
-    imagen.show()
+    # imagen.show()
     imagen2 = imagen
     i = 0
     while i < imagen2.size[0]:
         j = 0
         while j < imagen2.size[1]:
-            r,g,b,a = imagen2.getpixel((i, j))
-            proporcion = r/b
-            if proporcion < 0.95:
+            r,g, b = imagen2.getpixel((i, j))
+            proporcion = (r+g+b)/3
+            if proporcion < 242:
                 imagen2.putpixel((i,j),(0,0,0))
             else:
                 imagen2.putpixel((i,j),(255,255,255))
