@@ -24,17 +24,30 @@ def blanco_negro(imagen):
     ruta = ("./"+imagen)
     imagen = Image.open(ruta)
     # imagen.show()
-    imagen2 = imagen
+    mascara = Image.new("L",(4368,2912),0)
+    dibuja = ImageDraw.Draw(mascara)
+    dibuja.ellipse((860,132,3508,2780), fill=255)
+    imagen.putalpha(mascara)
+    imagen2=imagen.crop((860,132,3508,2780))
     i = 0
     while i < imagen2.size[0]:
         j = 0
         while j < imagen2.size[1]:
             r,g, b = imagen2.getpixel((i, j))
-            proporcion = (r+g+b)/3
-            if proporcion < 242:
+            try:
+                proporcion = (r+g+b)/3
+            except ZeroDivisionError:
+                proporcion = 0
+
+            if proporcion < 0.95:
+                # pone el pixel el negro
                 imagen2.putpixel((i,j),(0,0,0))
             else:
+                #pone el pixel en blanco
                 imagen2.putpixel((i,j),(255,255,255))
             j+= 1
         i+= 1
+    imagen2.save("./kkkk.png")
     imagen2.show()
+
+
