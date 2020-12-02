@@ -17,9 +17,11 @@ def mascara(im):
 
 def abrir_imagen(imagen):
     ruta = ("./"+imagen)
-    imagen = Image.open(ruta)
-    imagen.show()
-
+    im = Image.open(ruta)
+    secuenciadepixeles=im.getdata()
+    listadepixeles=list(secuenciadepixeles)
+    print(listadepixeles)
+#
 def blanco_negro(imagen):
     ruta = ("./"+imagen)
     imagen = Image.open(ruta)
@@ -29,16 +31,16 @@ def blanco_negro(imagen):
     dibuja.ellipse((860,132,3508,2780), fill=255)
     imagen.putalpha(mascara)
     imagen2=imagen.crop((860,132,3508,2780))
+    imagen2.show()
     i = 0
     while i < imagen2.size[0]:
         j = 0
         while j < imagen2.size[1]:
-            r,g, b = imagen2.getpixel((i, j))
+            r,g,b,a = imagen2.getpixel((i, j))
             try:
-                proporcion = (r+g+b)/3
+                proporcion = r/b
             except ZeroDivisionError:
                 proporcion = 0
-
             if proporcion < 0.95:
                 # pone el pixel el negro
                 imagen2.putpixel((i,j),(0,0,0))
