@@ -1,5 +1,5 @@
 # Cloud-Coverage
-In this project, we determined the cloud coverage index through images captured from the sky
+En este proyecto capturamos el índice de cobertura nubosa a partir de imagenes del cielo
 
 ----------------
 
